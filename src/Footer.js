@@ -4,9 +4,9 @@ export default function Footer() {
    return(
       <FooterStyle>
          <DivButtons>
-            <ButtonStyleRed>Não lembrei</ButtonStyleRed>
-            <ButtonStyleYellow>Quase não lembrei</ButtonStyleYellow>
-            <ButtonStyleGreen >Zap!</ButtonStyleGreen>
+            <ButtonStyle color="#FF3030">Não lembrei</ButtonStyle>
+            <ButtonStyle color="#FF922E" >Quase não lembrei</ButtonStyle>
+            <ButtonStyle color="#2FBE34">Zap!</ButtonStyle>
          </DivButtons>
 
          <DivProgress>
@@ -21,7 +21,7 @@ const FooterStyle = styled.footer`
    flex-direction: column;
    justify-content: space-between;
    position: fixed;
-   height: 130px;
+   height: 110px;
    bottom: 0;
    left: 0;
    right: 0;
@@ -37,37 +37,26 @@ const DivButtons = styled.div`
    justify-content: space-around;
    margin: 0 auto;
    width: 85%;
-
-   /* background-color: lightcoral; */
 `
 
-const SharedButtonStyle = styled.button`
-  width: 120px;
-  height: 50px;
-  color: white;
-  font-family: 'Recursive', sans-serif;
-  font-size: 17px;
-  font-weight: 700;
-  border-radius: 4px;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: none;
-`
-
-const ButtonStyleRed = styled(SharedButtonStyle)`
-   background-color: #FF3030;
-`
-const ButtonStyleYellow = styled(SharedButtonStyle)`
-   background-color: #FF922E;
-`
-const ButtonStyleGreen = styled(SharedButtonStyle)`
-   background-color: #2FBE34;
+const ButtonStyle = styled.button`
+   width: 120px;
+   height: 50px;
+   color: white;
+   font-family: 'Recursive', sans-serif;
+   font-size: 17px;
+   font-weight: 700;
+   border-radius: 4px;
+   cursor: pointer;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   border: none;
+   background-color:${ ({color})=> color };
 `
 
 const DivProgress = styled.div`
   font-family: 'Recursive', sans-serif;
   text-align: center;
-  margin-bottom: 15px;
+  margin-bottom: 5px;
 `
