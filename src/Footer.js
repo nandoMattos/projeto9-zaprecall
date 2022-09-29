@@ -53,6 +53,10 @@ const ButtonStyle = styled.button`
    align-items: center;
    border: none;
    background-color:${ ({color})=> color };
+   
+   &:hover{
+      filter: brightness(0.7);
+   }
 `
 
 const DivProgress = styled.div`

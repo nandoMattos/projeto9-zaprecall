@@ -4,8 +4,8 @@ import styled from "styled-components";
 export default function Header() {
     return(
         <HeaderStyle>
-                <img src={logo}></img>
-                <h1>ZapRecall</h1>
+            <img src={logo} alt="logo"></img>
+            <h1>ZapRecall</h1>
         </HeaderStyle>
     )
 };
