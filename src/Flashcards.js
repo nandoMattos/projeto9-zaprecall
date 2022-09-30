@@ -1,25 +1,13 @@
-import { useState } from "react"
 import styled from "styled-components"
 import playIcon from './assets/img/play-outline-icon.svg'
+import arrow from './assets/img/setinha.png'
 
-export default function Flashcards() {
-    const defaultFlashcards = [
-        {question: 'O que é JSX?', answer: 'Uma extensão de linguagem do JavaScript', visibilityId: "front-cover"},
-        {question: 'O React é ____', answer: 'uma biblioteca JavaScript para construção de interfaces', visibilityId: "front-cover"},
-        {question: 'Componentes devem iniciar com ____', answer: 'letra maiúscula', visibilityId: "front-cover"},
-        {question: 'Podemos colocar ____ dentro do JSX', answer: 'expressões', visibilityId: "front-cover"},
-        {question: 'O React DOM nos ajuda ____', answer: 'interagindo com a DOM para colocar os componentes React na mesma', visibilityId: "front-cover"},
-        {question: 'Usamos o npm para ____', answer: 'gerenciar os pacotes necessários e suas dependências', visibilityId: "front-cover"},
-        {question: 'Usamos props para ____', answer: 'passar diferentes informações para componentes', visibilityId: "front-cover"},
-        {question: 'Usamos o estado (state) para ____', answer: 'dizer para o React quais informações quando atualizadas devem renderizar na tela novamente', visibilityId: "front-cover"}
-    ]
-
-    const [flashcards, setFlashcards] = useState(defaultFlashcards)
+export default function Flashcards({flashcards,setFlashcards}) {
 
     function closeOthersCards(index) {
         let newFlashcards = flashcards;
         for (let i in newFlashcards) {
-            if (i != index) {
+            if (i !== index) {
                 newFlashcards[i].visibilityId = "front-cover"
             }
         }
@@ -27,32 +15,44 @@ export default function Flashcards() {
         setFlashcards(newFlashcards);
     }
 
-    function clickFlashcard(index) {
+    function flipFlashcard(index) {
         closeOthersCards(index);
-        
-        let newFlashcards = [...flashcards]
-        let clickedFlashcard = newFlashcards[index];
-        clickedFlashcard.visibilityId === "front-cover" ? clickedFlashcard.visibilityId = "question" : clickedFlashcard.visibilityId = "answer";
-        
-        setFlashcards(newFlashcards);
+        let newFlashcards = [...flashcards];
+        newFlashcards[index].visibilityId = "question"
+        setFlashcards(newFlashcards)
     }
 
-    function visibility(visibilityId, i) {
+    function showAnswer(index) {
+        let newFlashcards = [...flashcards]
+        newFlashcards[index].visibilityId = "answer"
+        setFlashcards(newFlashcards)
+    }
+
+    function textVisibility(visibilityId, i) {
         switch(visibilityId) {
             case "front-cover": return `Pergunta ${i+1}`;
             case "question": return flashcards[i].question;
             case "answer": return flashcards[i].answer;
+            default: return;
+        }
+    }
+
+    function iconVisibility(visibilityId, i) {
+        switch(visibilityId) {
+            case "front-cover": return <img src={playIcon} onClick={()=> flipFlashcard(i)}/> 
+            case "question": return <img src={arrow} onClick={()=> showAnswer(i)}/>
+            case "answer": return;
+            default: return;
         }
     }
 
     return(
         <ContainerFlashcards>
             {flashcards.map(({visibilityId}, i) =>
-                <>
-                    <FlashcardStyle display="flex" onClick={()=>clickFlashcard(i)}>
-                        {visibility(visibilityId, i)}
-                    </FlashcardStyle>
-                </>            
+                <Flashcard display="flex">
+                    {textVisibility(visibilityId, i)}
+                    {iconVisibility(visibilityId, i)}
+                </Flashcard>
             )}
         </ContainerFlashcards>
     )
@@ -65,7 +65,7 @@ const ContainerFlashcards = styled.div`
     align-items: center;
 `
 
-const FlashcardStyle = styled.div`
+const Flashcard = styled.div`
     width: 300px;
     height: 50px;
     display: ${ ({display})=>display };
@@ -76,6 +76,11 @@ const FlashcardStyle = styled.div`
     border-radius: 5px;
     margin: 10px 0px;
     padding: 10px 10px;
-    cursor: pointer;
+    /* cursor: pointer; */
     font-family: 'Recursive', cursive;
+
+    img {
+        width: 30px;
+        cursor: pointer;
+    }
 `

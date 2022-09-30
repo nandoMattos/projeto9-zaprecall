@@ -1,10 +1,15 @@
 import styled from "styled-components"
 
-export default function Footer() {
+export default function Footer({openedFlashcard}) {
+
+   function didntRemeber() {
+      
+   }
+
    return(
       <FooterStyle>
          <DivButtons>
-            <ButtonStyle color="#FF3030">Não lembrei</ButtonStyle>
+            <ButtonStyle onClick={didntRemeber} color="#FF3030" >Não lembrei</ButtonStyle>
             <ButtonStyle color="#FF922E" >Quase não lembrei</ButtonStyle>
             <ButtonStyle color="#2FBE34">Zap!</ButtonStyle>
          </DivButtons>
