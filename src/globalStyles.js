@@ -4,15 +4,16 @@ const GlobalStyle = createGlobalStyle`
 
 * {
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
-  width: 100vw;
-  height: 100vh;
-  /* display: flex; */
-  /* justify-content: center; */
-  /* align-items: center; */
-  background-color: #FB6B6B;
+	width: 100vw;
+	/* height: 100vh; */
+	/* display: flex; */
+	/* justify-content: center; */
+	/* align-items: center; */
+	background-color: #FB6B6B;
   /* font-family: 'Recursive', sans-serif; */
 }
 

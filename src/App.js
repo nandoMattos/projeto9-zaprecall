@@ -7,18 +7,14 @@ import { useState } from "react";
 
 export default function App() {
     const [flashcards, setFlashcards] = useState(defaultFlashcards)
-    let openedFlashcard = flashcards.filter((e)=> e.visibilityId === "question" || e.visibilityId === "answer")
-    
+
     return (
         <><GlobalStyle/>
             <Header/>
 
-            <main>
-                <Flashcards flashcards={flashcards} setFlashcards={setFlashcards} />
-            </main>
-
+            <Flashcards flashcards={flashcards} setFlashcards={setFlashcards} />
             
-            <Footer openedFlashcard={openedFlashcard}/>
+            <Footer flashcards={flashcards} setFlashcards={setFlashcards}/>
         </>
 
     )

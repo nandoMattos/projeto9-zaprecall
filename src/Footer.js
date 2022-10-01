@@ -1,21 +1,72 @@
 import styled from "styled-components"
 
-export default function Footer({openedFlashcard}) {
+export default function Footer({flashcards, setFlashcards}) {
+
+   let openedFlashcardIndex;
+   let concludedCount = 0;
+
+   for(let i in flashcards) {
+      // gets the opened flashcard index  
+      if (flashcards[i].visibilityId !== "front-cover") {
+         openedFlashcardIndex = i;
+      }
+      // count concluded cards
+      if (flashcards[i].label !== "none"){
+         concludedCount++;
+      }
+   }
 
    function didntRemeber() {
-      
+      const newFlashcards = [...flashcards]
+      newFlashcards[openedFlashcardIndex].label = "wrong";
+      newFlashcards[openedFlashcardIndex].visibilityId = "front-cover";
+      setFlashcards(newFlashcards)
+   }
+
+   function almostRemeber() {
+      const newFlashcards = [...flashcards]
+      newFlashcards[openedFlashcardIndex].label = "almost";
+      newFlashcards[openedFlashcardIndex].visibilityId = "front-cover";
+      setFlashcards(newFlashcards)
+   }
+
+   function zap() {
+      const newFlashcards = [...flashcards]
+      newFlashcards[openedFlashcardIndex].label = "zap";
+      newFlashcards[openedFlashcardIndex].visibilityId = "front-cover";
+      setFlashcards(newFlashcards)
    }
 
    return(
       <FooterStyle>
          <DivButtons>
-            <ButtonStyle onClick={didntRemeber} color="#FF3030" >Não lembrei</ButtonStyle>
-            <ButtonStyle color="#FF922E" >Quase não lembrei</ButtonStyle>
-            <ButtonStyle color="#2FBE34">Zap!</ButtonStyle>
+            <ButtonStyle 
+               onClick={didntRemeber} 
+               disabled={openedFlashcardIndex ? false : true} 
+               color="#FF3030" 
+            >
+               Não lembrei
+            </ButtonStyle>
+
+            <ButtonStyle 
+               onClick={almostRemeber} 
+               disabled={openedFlashcardIndex ? false : true} 
+               color="#FF922E" 
+            >
+               Quase não lembrei
+            </ButtonStyle>
+
+            <ButtonStyle 
+               onClick={zap} 
+               disabled={openedFlashcardIndex ? false : true} 
+               color="#2FBE34"
+            >
+               Zap!
+            </ButtonStyle>
          </DivButtons>
 
          <DivProgress>
-            1/4 Concluídos
+            {concludedCount}/{flashcards.length} Concluídos
          </DivProgress>
       </FooterStyle>
    )
@@ -26,7 +77,7 @@ const FooterStyle = styled.footer`
    flex-direction: column;
    justify-content: space-between;
    position: fixed;
-   height: 110px;
+   height: 80px;
    bottom: 0;
    left: 0;
    right: 0;
@@ -46,10 +97,10 @@ const DivButtons = styled.div`
 
 const ButtonStyle = styled.button`
    width: 120px;
-   height: 50px;
+   height: 38px;
    color: white;
    font-family: 'Recursive', sans-serif;
-   font-size: 17px;
+   font-size: 15px;
    font-weight: 700;
    border-radius: 4px;
    cursor: pointer;
@@ -60,12 +111,16 @@ const ButtonStyle = styled.button`
    background-color:${ ({color})=> color };
    
    &:hover{
-      filter: brightness(0.7);
+      /* filter: brightness(0.7); */
+   }
+
+   @media (max-width: 460px){
+      width: 90px;
    }
 `
 
 const DivProgress = styled.div`
   font-family: 'Recursive', sans-serif;
   text-align: center;
-  margin-bottom: 5px;
+  margin-top: 5px;
 `
