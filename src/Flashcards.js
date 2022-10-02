@@ -15,7 +15,7 @@ export default function Flashcards({flashcards,setFlashcards}) {
             }
         }
 
-        // setFlashcards(newFlashcards);
+        // setFlashcards(newFlashcards); for some unknown reason, this line isnt necessary 
     }
 
     function flipFlashcard(index) {
@@ -43,8 +43,8 @@ export default function Flashcards({flashcards,setFlashcards}) {
 
     function iconVisibility(visibilityId, i) {
         switch(visibilityId) {
-            case "front-cover": return <img src={playIcon} onClick={()=> flipFlashcard(i)}/> 
-            case "question": return <img src={arrow} onClick={()=> showAnswer(i)}/>
+            case "front-cover": return <img src={playIcon} alt="play icon" onClick={()=> flipFlashcard(i)}/> 
+            case "question": return <img src={arrow} alt="arrow icon" onClick={()=> showAnswer(i)}/>
             case "answer": return;
             default: return;
         }
@@ -55,14 +55,16 @@ export default function Flashcards({flashcards,setFlashcards}) {
             case "zap": return "#2FBE34";
             case "almost": return "#FF922E"; 
             case "wrong": return "#FF3030";
+            default: return;
         }
     }
 
     function checkLabelIcon(label) {
         switch(label) {
-            case "zap": return <img src={checkOk}/>
-            case "almost": return <img src={checkQuestionMark}/>
-            case "wrong": return <img src={checkError}/>
+            case "zap": return <img src={checkOk} alt="ok icon"/>
+            case "almost": return <img src={checkQuestionMark} alt="question mark icon"/>
+            case "wrong": return <img src={checkError} alt="error icon"/>
+            default: return;
         }
     }
 
@@ -70,13 +72,14 @@ export default function Flashcards({flashcards,setFlashcards}) {
         <ContainerFlashcards>
             {flashcards.map(({visibilityId, label}, i) =>
                 <Flashcard 
-                bgcolor={visibilityId === "front-cover" ? "white" : "#FFFFD4"}
-                fontWeight={visibilityId === "front-cover" ? "bold" : "initial"}
-                height={visibilityId === "front-cover" ? "70px" : "130px"}
-                align={visibilityId === "front-cover" ? "center" : "inital"}
-                bottom={visibilityId === "front-cover" ? "20px" : "10px"}
-                txtDecoration={label === "none" ? "" : "line-through"}
-                txtColor={label === "none"? "black" : ()=> checkLabelColor(label)}
+                    bgcolor={visibilityId === "front-cover" ? "white" : "#FFFFD4"}
+                    fontWeight={visibilityId === "front-cover" ? "bold" : "initial"}
+                    height={visibilityId === "front-cover" ? "70px" : "130px"}
+                    align={visibilityId === "front-cover" ? "center" : "inital"}
+                    bottom={visibilityId === "front-cover" ? "20px" : "10px"}
+                    txtDecoration={label === "none" ? "" : "line-through"}
+                    txtColor={label === "none"? "black" : ()=> checkLabelColor(label)}
+                    key={i}
                 >
                     <p>{textVisibility(visibilityId, i)}</p>
             

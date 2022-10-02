@@ -22,5 +22,6 @@ const HeaderStyle = styled.header`
     /* background-color: red; */
     img{ 
         margin-right: 20px;
+        width: 90px;
     }
 `

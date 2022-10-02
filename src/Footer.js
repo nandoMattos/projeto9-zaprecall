@@ -4,8 +4,9 @@ export default function Footer({flashcards, setFlashcards}) {
 
    let openedFlashcardIndex;
    let concludedCount = 0;
-
-   for(let i in flashcards) {
+   
+   // when flashcards array changes, verify progress 
+   for (let i in flashcards) {
       // gets the opened flashcard index  
       if (flashcards[i].visibilityId !== "front-cover") {
          openedFlashcardIndex = i;
@@ -15,6 +16,7 @@ export default function Footer({flashcards, setFlashcards}) {
          concludedCount++;
       }
    }
+
 
    function didntRemeber() {
       const newFlashcards = [...flashcards]
@@ -40,7 +42,7 @@ export default function Footer({flashcards, setFlashcards}) {
    return(
       <FooterStyle>
          <DivButtons>
-            <ButtonStyle 
+            <ButtonStyle
                onClick={didntRemeber} 
                disabled={openedFlashcardIndex ? false : true} 
                color="#FF3030" 
@@ -48,7 +50,7 @@ export default function Footer({flashcards, setFlashcards}) {
                Não lembrei
             </ButtonStyle>
 
-            <ButtonStyle 
+            <ButtonStyle
                onClick={almostRemeber} 
                disabled={openedFlashcardIndex ? false : true} 
                color="#FF922E" 
@@ -56,7 +58,7 @@ export default function Footer({flashcards, setFlashcards}) {
                Quase não lembrei
             </ButtonStyle>
 
-            <ButtonStyle 
+            <ButtonStyle
                onClick={zap} 
                disabled={openedFlashcardIndex ? false : true} 
                color="#2FBE34"
