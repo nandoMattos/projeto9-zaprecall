@@ -1,3 +1,20 @@
+/*
+visibilityId is responsable for setting flashcard visibility and styles/logic
+possibles input => output {
+    front-cover => shows card front-face: "Pergunta 1, 2, 3"
+    question => shows corresponding flashcard question
+    answer => shows corresponding flashcard answer
+}
+
+label is responsable for getting if user already answered the flashcard and set styles/logic
+possibles input => output {
+    none => user didnt answered yet
+    wrong => user forgot answer
+    almost => user almost forget anser
+    zap => user zapped
+}
+*/
+
 const defaultFlashcards = [
     {
         question: 'O que é JSX?',
