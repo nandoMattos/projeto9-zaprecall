@@ -7,7 +7,7 @@ export default function WelcomeScreen({display, setWelcomeVisibility}) {
             <ContentWelcome>
                 <img src={logo} alt="logo"/>
                 <h1>ZapRecall</h1>
-                <button onClick={()=>setWelcomeVisibility(false)}>Iniciar Recall!</button>
+                <button onClick={()=>setWelcomeVisibility(false)} data-identifier="start-btn">Iniciar Recall!</button>
             </ContentWelcome>
         </ScreenWelcome>
     )

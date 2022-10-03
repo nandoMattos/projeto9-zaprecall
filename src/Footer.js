@@ -18,14 +18,14 @@ export default function Footer({flashcards, setFlashcards}) {
    }
 
 
-   function didntRemeber() {
+   function Forgot() {
       const newFlashcards = [...flashcards]
       newFlashcards[openedFlashcardIndex].label = "wrong";
       newFlashcards[openedFlashcardIndex].visibilityId = "front-cover";
       setFlashcards(newFlashcards)
    }
 
-   function almostRemeber() {
+   function almostForgot() {
       const newFlashcards = [...flashcards]
       newFlashcards[openedFlashcardIndex].label = "almost";
       newFlashcards[openedFlashcardIndex].visibilityId = "front-cover";
@@ -43,17 +43,19 @@ export default function Footer({flashcards, setFlashcards}) {
       <FooterStyle>
          <DivButtons>
             <ButtonStyle
-               onClick={didntRemeber} 
-               disabled={openedFlashcardIndex ? false : true} 
-               color="#FF3030" 
+               onClick={Forgot}
+               disabled={openedFlashcardIndex ? false : true}
+               color="#FF3030"
+               data-identifier="forgot-btn"
             >
                Não lembrei
             </ButtonStyle>
 
             <ButtonStyle
-               onClick={almostRemeber} 
-               disabled={openedFlashcardIndex ? false : true} 
-               color="#FF922E" 
+               onClick={almostForgot}
+               disabled={openedFlashcardIndex ? false : true}
+               color="#FF922E"
+               data-identifier="almost-forgot-btn"
             >
                Quase não lembrei
             </ButtonStyle>
@@ -62,12 +64,13 @@ export default function Footer({flashcards, setFlashcards}) {
                onClick={zap} 
                disabled={openedFlashcardIndex ? false : true} 
                color="#2FBE34"
+               data-identifier="zap-btn"
             >
                Zap!
             </ButtonStyle>
          </DivButtons>
 
-         <DivProgress>
+         <DivProgress data-identifier="flashcard-counter">
             {concludedCount}/{flashcards.length} Concluídos
          </DivProgress>
       </FooterStyle>

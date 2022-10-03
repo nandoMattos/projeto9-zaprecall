@@ -34,17 +34,17 @@ export default function Flashcards({flashcards,setFlashcards}) {
 
     function textVisibility(visibilityId, i) {
         switch(visibilityId) {
-            case "front-cover": return `Pergunta ${i+1}`;
-            case "question": return flashcards[i].question;
-            case "answer": return flashcards[i].answer;
+            case "front-cover": return <p data-identifier="flashcard-index-item">Pergunta {i+1}</p>;
+            case "question": return <p data-identifier="flashcard-question">{flashcards[i].question}</p>;
+            case "answer": return <p data-identifier="flashcard-answer">{flashcards[i].answer}</p>;
             default: return;
         }
     }
 
     function iconVisibility(visibilityId, i) {
         switch(visibilityId) {
-            case "front-cover": return <img src={playIcon} alt="play icon" onClick={()=> flipFlashcard(i)}/> 
-            case "question": return <img src={arrow} alt="arrow icon" onClick={()=> showAnswer(i)}/>
+            case "front-cover": return <img src={playIcon} alt="play icon" onClick={()=> flipFlashcard(i)} data-identifier="flashcard-show-btn"/> 
+            case "question": return <img src={arrow} alt="arrow icon" onClick={()=> showAnswer(i)} data-identifier="flashcard-turn-btn"/>
             case "answer": return;
             default: return;
         }
@@ -61,32 +61,35 @@ export default function Flashcards({flashcards,setFlashcards}) {
 
     function checkLabelIcon(label) {
         switch(label) {
-            case "zap": return <img src={checkOk} alt="ok icon"/>
-            case "almost": return <img src={checkQuestionMark} alt="question mark icon"/>
-            case "wrong": return <img src={checkError} alt="error icon"/>
+            case "zap": return <img src={checkOk} alt="ok icon" data-identifier="flashcard-status"/>
+            case "almost": return <img src={checkQuestionMark} alt="question mark icon" data-identifier="flashcard-status"/>
+            case "wrong": return <img src={checkError} alt="error icon" data-identifier="flashcard-status"/>
             default: return;
         }
     }
 
     return(
         <ContainerFlashcards>
-            {flashcards.map(({visibilityId, label}, i) =>
-                <Flashcard 
-                    bgcolor={visibilityId === "front-cover" ? "white" : "#FFFFD4"}
-                    fontWeight={visibilityId === "front-cover" ? "bold" : "initial"}
-                    height={visibilityId === "front-cover" ? "70px" : "130px"}
-                    align={visibilityId === "front-cover" ? "center" : "inital"}
-                    bottom={visibilityId === "front-cover" ? "20px" : "10px"}
-                    txtDecoration={label === "none" ? "" : "line-through"}
-                    txtColor={label === "none"? "black" : ()=> checkLabelColor(label)}
-                    key={i}
-                >
-                    <p>{textVisibility(visibilityId, i)}</p>
-            
-                    {label === "none" ? iconVisibility(visibilityId, i) : checkLabelIcon(label)}
+            <ul>
+                {flashcards.map(({visibilityId, label}, i) =>
+                    <Flashcard 
+                        data-identifier="flashcard"
+                        bgcolor={visibilityId === "front-cover" ? "white" : "#FFFFD4"}
+                        fontWeight={visibilityId === "front-cover" ? "bold" : "initial"}
+                        height={visibilityId === "front-cover" ? "70px" : "130px"}
+                        align={visibilityId === "front-cover" ? "center" : "inital"}
+                        bottom={visibilityId === "front-cover" ? "20px" : "10px"}
+                        txtDecoration={label === "none" ? "" : "line-through"}
+                        txtColor={label === "none"? "black" : ()=> checkLabelColor(label)}
+                        key={i}
+                    >
+                        <span>{textVisibility(visibilityId, i)}</span>
                 
-                </Flashcard>
-            )}
+                        {label === "none" ? iconVisibility(visibilityId, i) : checkLabelIcon(label)}
+                    
+                    </Flashcard>
+                )}
+            </ul>
         </ContainerFlashcards>
     )
 }
@@ -99,7 +102,7 @@ const ContainerFlashcards = styled.main`
     margin-bottom: 90px;
 `
 
-const Flashcard = styled.div`
+const Flashcard = styled.li`
     width: 300px;
     height: ${ ({height})=>height };
     display: flex;
@@ -117,7 +120,7 @@ const Flashcard = styled.div`
     background-color: ${ ({bgcolor})=>bgcolor };
     text-decoration: ${ ({txtDecoration})=>txtDecoration };
 
-    p{
+    span{
         font-weight: ${ ({fontWeight})=>fontWeight }
     }
 
