@@ -15,7 +15,7 @@ export default function Flashcards({flashcards,setFlashcards}) {
             }
         }
 
-        // setFlashcards(newFlashcards); for some unknown reason, this line isnt necessary 
+        // setFlashcards(newFlashcards); 
     }
 
     function flipFlashcard(index) {

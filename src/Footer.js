@@ -16,9 +16,11 @@ export default function Footer({flashcards, setFlashcards}) {
          concludedCount++;
       }
    }
-
+   
+   console.log(flashcards)
 
    function Forgot() {
+      console.log(flashcards)
       const newFlashcards = [...flashcards]
       newFlashcards[openedFlashcardIndex].label = "wrong";
       newFlashcards[openedFlashcardIndex].visibilityId = "front-cover";
